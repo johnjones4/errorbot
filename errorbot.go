@@ -38,11 +38,12 @@ func (b *ErrorBot) Send(stamp time.Time, caller string, stack string, message st
 	}()
 }
 
-func (b *ErrorBot) ZapHook(levels []zapcore.Level) func(zapcore.Entry) {
-	return func(e zapcore.Entry) {
+func (b *ErrorBot) ZapHook(levels []zapcore.Level) func(zapcore.Entry) error {
+	return func(e zapcore.Entry) error {
 		if slices.Contains(levels, e.Level) {
 			b.Send(e.Time, e.Caller.String(), e.Stack, e.Message)
 		}
+		return nil
 	}
 }
 

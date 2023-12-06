@@ -26,8 +26,8 @@ func New(telegramToken string, chatId int) *ErrorBot {
 
 func (b *ErrorBot) Send(stamp time.Time, caller string, stack string, message string) {
 	go func() {
-		log.Printf("Received: %s %s %s\n\n%s", stamp, caller, message, stack)
 		msg := fmt.Sprintf("Message: %s\nTime: %s\nCaller: %s\nStack: %s", message, stamp, caller, stack)
+		fmt.Println(msg)
 		err := b.telegram.sendMessage(outgoingMessage{
 			Text:   msg,
 			ChatId: b.chatId,
